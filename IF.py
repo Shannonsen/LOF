@@ -26,7 +26,6 @@ print(type(if_anomalies))
 if_anomalies=data_cities_dataframe[if_anomalies==1]
 print(if_anomalies)
 
-
 plt.scatter(X,Y,c='white',s=20,edgecolor='k')
 plt.scatter(if_anomalies.iloc[:,0],if_anomalies.iloc[:,1],c='red')
 plt.xlabel('Income')
