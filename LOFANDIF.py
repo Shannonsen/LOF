@@ -40,14 +40,14 @@ def LOF():
     return datums_scores, anomalies, cities_anomalies
 
 
-def LOF_GRAPHIC(X, Y, colors, datums_scores):
+def LOF_GRAPHIC(X, Y, colors, datums_scores,cities_anomalies):
     plt.title("LOF")
     plt.scatter(X, Y, c=colors, s=3.0, label="datums")
     radius = (datums_scores.max() - datums_scores) / (
         datums_scores.max() - datums_scores.min()
     )
     plt.scatter(
-        X, Y, s=1000 * radius, edgecolors="r", facecolors="none", label="Outlier scores"
+       cities_anomalies.iloc[:, 1], cities_anomalies.iloc[:, 2], c="red", edgecolor="k"
     )
     """ for i, label in enumerate(names):
         plt.annotate(label, (X[i], Y[i]), fontsize=4) """
@@ -80,7 +80,6 @@ def IF_GRAPHIC(X, Y, colors, if_anomalies):
     )
     plt.show()
 
-
 def IF_HISTOGRAM(if_scores):
     plt.figure(figsize=(12, 8))
     plt.hist(if_scores)
@@ -100,7 +99,7 @@ Y = cities()[:, 2]
 
 """ LOF """
 datums_scores, anomalies, cities_anomalies = LOF()
-LOF_GRAPHIC(X, Y, colors_points(), datums_scores)
+LOF_GRAPHIC(X, Y, colors_points(), datums_scores,cities_anomalies)
 """ LOF_HISTOGRAM(datums_scores) """
 """ print(cities_anomalies.to_string()) """
 
