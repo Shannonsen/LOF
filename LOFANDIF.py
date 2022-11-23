@@ -32,7 +32,7 @@ def colors_points():
 
 
 def LOF():
-    clf = LocalOutlierFactor(n_neighbors=1, contamination=0.1)
+    clf = LocalOutlierFactor(n_neighbors=5, contamination=0.1)
     output = clf.fit_predict(coordinates_cities())
     datums_scores = clf.negative_outlier_factor_
     anomalies = pd.DataFrame(output)[output == -1]
@@ -61,7 +61,7 @@ def LOF_HISTOGRAM(datums_scores):
 
 
 def IF():
-    clf = IsolationForest(n_estimators=50, max_samples=100, contamination=0.1)
+    clf = IsolationForest(n_estimators=10, max_samples=100, contamination=0.1)
     clf.fit(coordinates_cities())
     if_scores = clf.decision_function(coordinates_cities())
     if_anomalies = clf.predict(coordinates_cities())
@@ -99,17 +99,19 @@ Y = cities()[:, 2]
 
 """ LOF """
 datums_scores, anomalies, cities_anomalies = LOF()
-LOF_GRAPHIC(X, Y, colors_points(), datums_scores,cities_anomalies)
-""" LOF_HISTOGRAM(datums_scores) """
+""" LOF_GRAPHIC(X, Y, colors_points(), datums_scores,cities_anomalies)
+LOF_HISTOGRAM(datums_scores)
+print(cities_anomalies) """
 """ print(cities_anomalies.to_string()) """
 
 
 """ IF """
 if_scores, if_anomalies, cities_anomalies = IF()
-""" IF_GRAPHIC(X,Y,colors_points(),if_anomalies) """
-""" IF_HISTOGRAM(if_scores) """
+""" IF_GRAPHIC(X,Y,colors_points(),if_anomalies)
+IF_HISTOGRAM(if_scores)
+print(cities_anomalies) """
 """ print(cities_anomalies.to_string()) """
 
 
 """ DISPERSION DIAGRAM """
-""" DISPERSION_DIAGRAM(datums_scores, if_scores) """
+DISPERSION_DIAGRAM(datums_scores, if_scores)
